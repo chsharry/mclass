@@ -1,10 +1,10 @@
-pipeline {
+pipeline{
     agent any // 어떤 에이전트(실행서버)에서든 실행가능
 
     tools{
         maven 'maven 3.9.11' //jenkins에 등록된 maven 3.9.11을 사용 
     }
-    environment {
+    environment{
         // 배포에 필요한 변수 설정   (어떤 배포냐? jenkins에서 만든 docker file을 spring으로 배포하기 위한 변수)
         DOCKER_IMAGE = "demo-app" // 도커 이미지 이름
         CONTAINER_NAME = "springboot-container"  //도커 컨테이너 이름
@@ -19,7 +19,7 @@ pipeline {
     // 본격적인 git push로 하는 스크립트 내용
 
     stages{
-        stage('Git Check out') {
+        stage('Git Check out'){
             steps{  // step: stage 안에서 실행할 실제 명령어
                 //commit된 것 중 가장 최신버전말 실행되게 해야함 
                 //jenkins 가 연결된 git 저장소에서 최신 코드 체크 아웃
@@ -34,7 +34,7 @@ pipeline {
                 // sh 'echo hello' : 리눅스 실행 명령어
             }
         }
-        stage('prepare Jar') {
+        stage('prepare Jar'){
             steps{
                 // 빌드 결과물인 jar 파일을 지정한 이름 (app.jar)으로 복사
                 sh 'cp target/demo-0.0.1-SNAPSHOT.jar $(JAR_FILE_NAME)'
@@ -51,7 +51,7 @@ pipeline {
             }
         }
 
-        stage('Remote docker Build & Copy') {
+        stage('Remote docker Build & Copy'){
             steps{
                 sshagent(credentials:[environment.SSH_CREDENTIALS_ID]) {
                     sh """
