@@ -43,7 +43,7 @@ pipline {
         stage('Copy to remote Server Docker file'){
             steps{
                 //jenkins가 원격서버에 SSH 접속할 수 있도록 sshagent사용
-                sshagent(credentials: [environment.SSH_CREDENTIALS_ID]){
+                sshagent(credentials:[environment.SSH_CREDENTIALS_ID]){
                     sh "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${REMOTE_USER}@${REMOTE_HOST} \"mkdir -p ${REMOTE_DIR}\""
                     // JAR 파일과 Dockerfile을 원격 서버에 복사
                     sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${JAR_FILE_NAME} Dockerfile ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/"
@@ -53,7 +53,7 @@ pipline {
 
         stage('Remote docker Build & Copy') {
             steps {
-                sshagent(credentials: [environment.SSH_CREDENTIALS_ID]) {
+                sshagent(credentials:[environment.SSH_CREDENTIALS_ID]) {
                     sh """
                     ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${REMOTE_USER}@${REMOTE_HOST} << ENDSSH
                         cd ${REMOTE_DIR} || exit 1 
