@@ -18,9 +18,9 @@ pipeline {
 
     // 본격적인 git push로 하는 스크립트 내용
 
-    stages {
+    stages{
         stage('Git Check out') {
-            steps {  // step: stage 안에서 실행할 실제 명령어
+            steps{  // step: stage 안에서 실행할 실제 명령어
                 //commit된 것 중 가장 최신버전말 실행되게 해야함 
                 //jenkins 가 연결된 git 저장소에서 최신 코드 체크 아웃
                 checkout scm 
@@ -28,14 +28,14 @@ pipeline {
         }
 
         stage('maven Build'){
-            steps {
+            steps{
                 //테스트는 건너 뛰고 maven 빌드
                 sh 'mvn clean packages -DskipTests'
                 // sh 'echo hello' : 리눅스 실행 명령어
             }
         }
         stage('prepare Jar') {
-            steps {
+            steps{
                 // 빌드 결과물인 jar 파일을 지정한 이름 (app.jar)으로 복사
                 sh 'cp target/demo-0.0.1-SNAPSHOT.jar $(JAR_FILE_NAME)'
             }
@@ -52,7 +52,7 @@ pipeline {
         }
 
         stage('Remote docker Build & Copy') {
-            steps {
+            steps{
                 sshagent(credentials:[environment.SSH_CREDENTIALS_ID]) {
                     sh """
                     ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${REMOTE_USER}@${REMOTE_HOST} << ENDSSH
