@@ -1,4 +1,4 @@
-pipline {
+pipeline {
     agent any // 어떤 에이전트(실행서버)에서든 실행가능
 
     tool {
