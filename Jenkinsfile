@@ -1,7 +1,7 @@
 pipeline {
     agent any // 어떤 에이전트(실행서버)에서든 실행가능
 
-    tool {
+    tools{
         maven 'maven 3.9.11' //jenkins에 등록된 maven 3.9.11을 사용 
     }
     environment {
