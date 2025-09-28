@@ -16,7 +16,7 @@ pipeline {
         REMOTE_HOST = "43.201.18.147"    // 원격(spring) 서버 IP(Public IP)
 
         REMOTE_DIR = "/home/ec2-user/deploy"    // 원격 서버에 파일 복사할 경로 
-        SSH_CREDENTIALS_ID = "	0228fe82-77c6-40b4-a9f5-27e73bffe2a0" // Jenkins SSH 자격 증명 ID
+        SSH_CREDENTIALS_ID = "0228fe82-77c6-40b4-a9f5-27e73bffe2a0" // Jenkins SSH 자격 증명 ID
     }
 
     stages {
